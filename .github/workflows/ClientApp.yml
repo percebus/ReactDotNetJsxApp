@@ -15,9 +15,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: cd ${{ env.WORKSPACE }}
-        run: cd ${{ env.WORKSPACE }}
       - name: ls
+        working-directory: $${{ env.WORKSPACE }}
         run: ls -la
 
       - name: setup node@${{ env.NODE_VERSION }}
@@ -25,12 +24,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: setup
+        working-directory: $${{ env.WORKSPACE }}
         run: npm run setup:ci --if-present
       - name: npm install
+        working-directory: $${{ env.WORKSPACE }}
         run: npm ci
       - name: ls node_modules
+        working-directory: $${{ env.WORKSPACE }}
         run: ls -la ./node_modules
       - name: npm audit
+        working-directory: $${{ env.WORKSPACE }}
         run: npm audit
         continue-on-error: true # XXX?
 
@@ -39,12 +42,13 @@ jobs:
       #   run: npm test
 
       - name: dist
+        working-directory: $${{ env.WORKSPACE }}
         run: npm run build
       - name: dist.zip
         uses: actions/upload-artifact@v3
         with:
           name: dist
-          path: dist
+          path: $${{ env.WORKSPACE }}/dist
 
 
   builds:
@@ -60,9 +64,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: cd ${{ env.WORKSPACE }}
-        run: cd ${{ env.WORKSPACE }}
       - name: ls
+        working-directory: $${{ env.WORKSPACE }}
         run: ls -la
 
       - name: setup node@${{ matrix.node }}
@@ -70,8 +73,10 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: setup
+        working-directory: $${{ env.WORKSPACE }}
         run: npm run setup:ci --if-present
       - name: npm install
+        working-directory: $${{ env.WORKSPACE }}
         run: npm ci
 
       # TODO
@@ -79,4 +84,5 @@ jobs:
       #   run: npm test
 
       - name: dist
+        working-directory: $${{ env.WORKSPACE }}
         run: npm run build
