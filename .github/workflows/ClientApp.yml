@@ -1,0 +1,82 @@
+name: ClientApp
+on:
+  push:
+  # schedule: # TODO? or XXX?
+  #   - cron: '0 0 * * *'
+
+env:
+  NODE_VERSION: 18
+  WORKSPACE: ./Solution/WeatherForecast.WebApp/ClientApp
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: cd ${{ WORKSPACE }}
+        run: cd ${{ WORKSPACE }}
+      - name: ls
+        run: ls -la
+
+      - name: setup node@${{ NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ NODE_VERSION }}
+      - name: setup
+        run: npm run setup:ci --if-present
+      - name: npm install
+        run: npm ci
+      - name: ls node_modules
+        run: ls -la ./node_modules
+      - name: npm audit
+        run: npm audit
+        continue-on-error: true # XXX?
+
+      # TODO
+      # - name: npm test
+      #   run: npm test
+
+      - name: dist
+        run: npm run build
+      - name: dist.zip
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+
+  builds:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    strategy:
+      max-parallel: 6
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        node: [16, 18]
+    runs-on: ${{ matrix.os }}
+    name: Build @ node:${{ matrix.node }}@${{ matrix.os }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: cd ${{ WORKSPACE }}
+        run: cd ${{ WORKSPACE }}
+      - name: ls
+        run: ls -la
+
+      - name: setup node@${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - name: setup
+        run: npm run setup:ci --if-present
+      - name: npm install
+        run: npm ci
+
+      # TODO
+      # - name: npm test
+      #   run: npm test
+
+      - name: dist
+        run: npm run build
