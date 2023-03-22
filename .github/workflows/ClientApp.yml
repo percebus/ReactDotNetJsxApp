@@ -6,7 +6,7 @@ on:
 
 env:
   NODE_VERSION: 18
-  WORKSPACE: ./Solution/WeatherForecast.WebApp/ClientApp
+  WORKSPACE: './Solution/WeatherForecast.WebApp/ClientApp'
 
 jobs:
   build:
