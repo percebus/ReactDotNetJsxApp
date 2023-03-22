@@ -40,13 +40,13 @@ jobs:
       # - name: npm test
       #   run: npm test
 
-      - name: dist
+      - name: npm build
         run: npm run build
-      - name: dist.zip
+      - name: build.zip
         uses: actions/upload-artifact@v3
         with:
-          name: dist
-          path: ${{ env.WORKSPACE }}/dist
+          name: build
+          path: ${{ env.WORKSPACE }}/build
 
 
   builds:
@@ -78,5 +78,5 @@ jobs:
       # - name: npm test
       #   run: npm test
 
-      - name: dist
+      - name: npm build
         run: npm run build
