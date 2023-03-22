@@ -15,15 +15,15 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: cd ${{ WORKSPACE }}
-        run: cd ${{ WORKSPACE }}
+      - name: cd ${WORKSPACE}
+        run: cd ${WORKSPACE}
       - name: ls
         run: ls -la
 
-      - name: setup node@${{ NODE_VERSION }}
+      - name: setup node@${NODE_VERSION}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ NODE_VERSION }}
+          node-version: ${NODE_VERSION}
       - name: setup
         run: npm run setup:ci --if-present
       - name: npm install
@@ -60,8 +60,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: cd ${{ WORKSPACE }}
-        run: cd ${{ WORKSPACE }}
+      - name: cd ${WORKSPACE}
+        run: cd ${WORKSPACE}
       - name: ls
         run: ls -la
 
