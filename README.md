@@ -1,3 +1,3 @@
 # ReactDotNetJsxApp
 
-[`HISTORY`](./HISTORY)
+[`HISTORY`](./HISTORY.md)
