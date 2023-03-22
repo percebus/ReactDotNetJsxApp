@@ -8,9 +8,8 @@ env:
   NODE_VERSION: 18
 
 defaults:
- run:
-  working-directory: ./Solution/WeatherForecast.WebApp/ClientApp
-
+  run:
+    working-directory: ./Solution/WeatherForecast.WebApp/ClientApp
 
 jobs:
   build:
@@ -47,7 +46,6 @@ jobs:
         with:
           name: build
           path: ${{ env.WORKSPACE }}/build
-
 
   builds:
     if: github.ref == 'refs/heads/main'
