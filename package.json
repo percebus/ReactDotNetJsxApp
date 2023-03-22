@@ -1,0 +1,35 @@
+{
+  "name": "react-dotnet-jsx-app",
+  "version": "0.1.0",
+  "description": "[`HISTORY`](./HISTORY.md) | [`TODO`](./TODO.md)",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0",
+    "prettier": "prettier .",
+    "prettier:check": "npm run prettier -- --check",
+    "prettier:write": "npm run prettier -- --write",
+    "style": "npm run prettier:write",
+    "lint": "npm run prettier:check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/percebus/ReactDotNetJsxApp.git"
+  },
+  "keywords": [
+    "react",
+    ".net",
+    "dotnet",
+    "ASP",
+    "MVC",
+    "JSX"
+  ],
+  "author": "percebus",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/percebus/ReactDotNetJsxApp/issues"
+  },
+  "homepage": "https://github.com/percebus/ReactDotNetJsxApp#readme",
+  "devDependencies": {
+    "prettier": "^2.8.6"
+  }
+}
